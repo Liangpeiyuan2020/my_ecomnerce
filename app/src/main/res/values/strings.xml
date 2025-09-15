@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">shopie</string>
+    <string name="app_name">my_shopie</string>
     <string name="login">Log In</string>
     <string name="email">e-mail</string>
     <string name="e_mail">e-mail</string>
