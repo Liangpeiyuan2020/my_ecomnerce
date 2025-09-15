@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.bottomNavigationView, fragment)
+            replace(R.id.frameLayout, fragment)
             commit()
         }
     }
