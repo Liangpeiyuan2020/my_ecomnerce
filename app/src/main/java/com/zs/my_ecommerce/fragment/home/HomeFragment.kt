@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.zs.my_ecommerce.R
+import com.zs.my_ecommerce.adapt.ProductAdapter
 import com.zs.my_ecommerce.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +51,11 @@ class HomeFragment : Fragment() {
     private fun observe() {
         homeVm.product.observe(viewLifecycleOwner) {
             Log.i("HomeFragment", it.toString())
+            val _adapter = ProductAdapter(it)
+            binding.recycleView.apply {
+                layoutManager = GridLayoutManager(requireActivity(), 2)
+                adapter = _adapter
+            }
         }
     }
 

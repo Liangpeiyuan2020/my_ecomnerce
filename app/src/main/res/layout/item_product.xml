@@ -24,8 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            >
+            android:padding="10dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/productImage"
@@ -57,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:text="@{product.title}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +70,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="sans-serif"
+                android:text="@{String.valueOf(product.price)}"
                 android:textColor="@color/green"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,24 +79,24 @@
                 tools:text="19.9" />
 
             <androidx.appcompat.widget.AppCompatButton
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productPrice"
                 android:id="@+id/buttonAddToCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/ripple_bg_add"
                 android:backgroundTint="@color/orange"
                 android:fontFamily="sans-serif"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:layout_marginTop="10dp"
-
                 android:scaleX="0.8"
                 android:scaleY="0.8"
                 android:text="@string/add_to_chart"
+
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productPrice" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
