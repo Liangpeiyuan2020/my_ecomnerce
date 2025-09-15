@@ -18,6 +18,24 @@
     <color name="green">#9ccc65</color>
     <color name="lightGray">#e2e2e2</color>
     <color name="green_alternative">#64ba69</color>
+
+    <color name="colorPrimary">#666666</color>
+    <color name="colorPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="colorAccent">#EF3939</color>
+    <color name="main_bg_1">#ffffff</color>
+    <color name="main_bg_2">#EFEFEF</color>
+    <color name="main_bg_3">#CACACA</color>
+
+    <color name="theme_color_1">#333333</color>
+    <color name="theme_color_2">#666666</color>
+    <color name="theme_color_3">#999999</color>
+
+    <color name="ripple_gray">#D1D1D1</color>
+
+    <color name="float_bg">#F2FFFFFF</color>
+
+    <color name="division_line">#EDEDED</color>
+
 </resources>
 
 
