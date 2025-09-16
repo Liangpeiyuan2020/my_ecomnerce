@@ -9,28 +9,14 @@ import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.databinding.ItemProductBinding
 
 class ProductAdapter(
-    initialFavorites: Map<Int, Favorite>,
-    initialProducts: List<Product>,
+    val favorites: Map<Int, Favorite>,
+    val products: List<Product>,
     val onItemClick: (Product) -> Unit,
     val onFavoriteClick: (Product) -> Unit,
     val onAddToCartClick: (Product) -> Unit
 ) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    private var favorites = initialFavorites
-    private var products = initialProducts
-
-    // 新增数据更新方法
-    fun updateFavorites(newFavorites: Map<Int, Favorite>) {
-        favorites = newFavorites
-        notifyDataSetChanged()
-    }
-
-    fun updateProducts(newProducts: List<Product>) {
-        products = newProducts
-        Log.i("HomeFragment1", products.size.toString())
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

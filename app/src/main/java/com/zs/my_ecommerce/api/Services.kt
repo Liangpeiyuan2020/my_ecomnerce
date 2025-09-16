@@ -19,8 +19,8 @@ interface Services {
     @GET("products?limit=200")
     suspend fun getProducts(): MyResponse
 
-    @GET("products/category")
-    suspend fun getCategorizedProduct(@Url category: String): MyResponse
+    @GET("products/category/{category}")
+    suspend fun getCategorizedProduct(@Path("category") category: String): MyResponse
 
     @GET("products/category-list")
     suspend fun getCategories(): List<String>
