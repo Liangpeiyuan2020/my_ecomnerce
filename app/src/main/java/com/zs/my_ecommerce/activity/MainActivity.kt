@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 //        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         initBottomNavigation()
-        replaceFragment(HomeFragment.newInstance("param1", "param2"))
+        replaceFragment(HomeFragment.newInstance())
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -40,23 +40,23 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-                    replaceFragment(HomeFragment.newInstance("param1", "param2"))
+                    replaceFragment(HomeFragment.newInstance())
                 }
 
                 R.id.category -> {
-                    replaceFragment(CategoryFragment())
+                    replaceFragment(CategoryFragment.newInstance())
                 }
 
                 R.id.favorite -> {
-                    replaceFragment(FavoriteFragment())
+                    replaceFragment(FavoriteFragment.newInstance())
                 }
 
                 R.id.cart -> {
-                    replaceFragment(CartFragment())
+                    replaceFragment(CartFragment.newInstance())
                 }
 
                 R.id.profile -> {
-                    replaceFragment(ProfileFragment())
+                    replaceFragment(ProfileFragment.newInstance())
                 }
             }
             true
