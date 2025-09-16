@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.adapt.ProductAdapter
+import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -51,12 +52,29 @@ class HomeFragment : Fragment() {
     private fun observe() {
         homeVm.product.observe(viewLifecycleOwner) {
             Log.i("HomeFragment", it.toString())
-            val _adapter = ProductAdapter(it)
+            val _adapter = ProductAdapter(
+                it,
+                onItemClick = { product -> onItemClick(product) },
+                onFavoriteClick = { product -> onFavoriteClick(product) },
+                onAddToCartClick = { product -> onAddToCartClick(product) }
+            )
             binding.recycleView.apply {
                 layoutManager = GridLayoutManager(requireActivity(), 2)
                 adapter = _adapter
             }
         }
+    }
+
+    private fun onItemClick(product: Product) {
+        Log.i("homeFragment", "onItemClick")
+    }
+
+    private fun onFavoriteClick(product: Product) {
+        Log.i("homeFragment", "onFavoriteClick")
+    }
+
+    private fun onAddToCartClick(product: Product) {
+        Log.i("homeFragment", "onAddToCartClick")
     }
 
     companion object {

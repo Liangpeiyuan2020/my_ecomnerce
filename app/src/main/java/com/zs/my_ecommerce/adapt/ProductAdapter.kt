@@ -6,7 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.databinding.ItemProductBinding
 
-class ProductAdapter(val productList: List<Product>) :
+class ProductAdapter(
+    val productList: List<Product>,
+    val onItemClick: (Product) -> Unit,
+    val onFavoriteClick: (Product) -> Unit,
+    val onAddToCartClick: (Product) -> Unit
+) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,6 +36,15 @@ class ProductAdapter(val productList: List<Product>) :
 
         fun bind(product: Product) {
             binding.product = product
+            binding.cardView.setOnClickListener {
+                onItemClick(product)
+            }
+            binding.checkbox.setOnClickListener {
+                onFavoriteClick(product)
+            }
+            binding.buttonAddToCart.setOnClickListener {
+                onAddToCartClick(product)
+            }
         }
     }
 }

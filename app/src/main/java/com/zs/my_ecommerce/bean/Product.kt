@@ -1,7 +1,7 @@
 package com.zs.my_ecommerce.bean
 
 data class Product(
-    val id: Int,//named as productId, productName... and productList --> products
+    val id: Int,
     val title: String,
     val description: String,
     val price: Double,
