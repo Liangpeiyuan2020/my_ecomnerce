@@ -31,7 +31,7 @@ class DataBaseRepository(dataBase: MyDataBase) {
     }
 
     suspend fun deleteFavorite(favorite: Favorite) {
-        favoriteDao.deleteFavorite(favorite)
+        favoriteDao.deleteFavorite(favorite.id)
     }
 
     suspend fun getAllFavorite(): List<Favorite> {

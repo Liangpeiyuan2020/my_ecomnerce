@@ -11,8 +11,10 @@ interface FavoriteDao {
     @Insert
     suspend fun insertFavorite(favorite: Favorite)
 
-    @Delete
-    suspend fun deleteFavorite(favorite: Favorite)
+    //    @Delete
+//    suspend fun deleteFavorite(favorite: Favorite)
+    @Query(value = "DELETE FROM tableFavorite WHERE id = :id")
+    suspend fun deleteFavorite(id: Int)
 
     @Query(value = "SELECT * FROM tableFavorite")
     suspend fun getAllFavorite(): List<Favorite>

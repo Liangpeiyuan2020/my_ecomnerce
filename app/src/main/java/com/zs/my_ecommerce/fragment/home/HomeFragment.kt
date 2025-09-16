@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("HomeFragment", "onViewCreated")
+//        Log.i("HomeFragment", "onViewCreated")
         initRecycle()
         observe()
         homeVm.getFavorites()
@@ -57,46 +57,43 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycle() {
-        pAdapter = ProductAdapter(
-            homeVm.favorite.value ?: emptyMap(),
-            homeVm.product.value ?: emptyList(),
-            onItemClick = { product -> onItemClick(product) },
-            onFavoriteClick = { product -> onFavoriteClick(product) },
-            onAddToCartClick = { product -> onAddToCartClick(product) }
-        )
-        binding.recycleView.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
-            adapter = pAdapter
-        }
+
     }
 
     private fun observe() {
         homeVm.product.observe(viewLifecycleOwner) {
-            Log.i("HomeFragment", it.size.toString())
-            pAdapter.updateProducts(it)
-        }
-        homeVm.favorite.observe(viewLifecycleOwner) {
-            Log.i("HomeFragment", "onViewCreated")
-            pAdapter.updateFavorites(it)
-
+            pAdapter = ProductAdapter(
+                homeVm.favorite.value ?: emptyMap(),
+                homeVm.product.value ?: emptyList(),
+                onItemClick = { product -> onItemClick(product) },
+                onFavoriteClick = { product -> onFavoriteClick(product) },
+                onAddToCartClick = { product -> onAddToCartClick(product) }
+            )
+            binding.recycleView.apply {
+                layoutManager = GridLayoutManager(requireActivity(), 2)
+                adapter = pAdapter
+            }
         }
     }
 
     private fun onItemClick(product: Product) {
-        Log.i("homeFragment", "onItemClick")
+//        Log.i("homeFragment", "onItemClick")
     }
 
     private fun onFavoriteClick(product: Product) {
-        Log.i("homeFragment", "onFavoriteClick")
-        if (homeVm.favorite.value?.contains(product.id) ?: false)
+        if (homeVm.favorite.value!!.contains(product.id)) {
             homeVm.removeFavorite(product)
-        else
+//            Log.i("homeFragment", "remove")
+        } else {
             homeVm.addFavorite(product)
+//            Log.i("homeFragment", "add")
+        }
+
     }
 
     private fun onAddToCartClick(product: Product) {
         homeVm.getFavorites()
-        Log.i("homeFragment", homeVm.favorite.toString())
+        Log.i("homeFragment", homeVm.favorite.value?.size.toString())
 
     }
 
