@@ -1,11 +1,10 @@
 package com.zs.my_ecommerce.repository
 
 import com.zs.my_ecommerce.api.Services
-import com.zs.my_ecommerce.bean.MyResponse
 import com.zs.my_ecommerce.bean.Product
 
 
-class Repository(val services: Services) {
+class ApiRepository(val services: Services) {
     suspend fun getProducts(): List<Product> {
         return services.getProducts().products
     }

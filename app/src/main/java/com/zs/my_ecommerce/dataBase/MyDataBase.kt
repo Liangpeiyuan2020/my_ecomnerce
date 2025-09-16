@@ -20,7 +20,9 @@ abstract class MyDataBase : RoomDatabase() {
                     BaseApp.getContext(),
                     MyDataBase::class.java,
                     "myDataBase"
-                ).build()
+                ).build().also {
+                    instance = it
+                }
             }
         }
     }
