@@ -1,5 +1,9 @@
 package com.zs.my_ecommerce.bean
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tableProduct")
 data class Product(
     val id: Int,
     val title: String,
@@ -11,5 +15,6 @@ data class Product(
     val brand: String,
     val category: String,
     val thumbnail: String,
-    val images: List<String>? = null
+    @PrimaryKey(autoGenerate = true)
+    val uuid: Int = 0
 )

@@ -2,6 +2,7 @@ package com.zs.my_ecommerce.utils
 
 import android.app.Application
 import android.content.Context
+import com.zs.my_ecommerce.dataBase.MyDataBase
 
 
 class BaseApp : Application() {

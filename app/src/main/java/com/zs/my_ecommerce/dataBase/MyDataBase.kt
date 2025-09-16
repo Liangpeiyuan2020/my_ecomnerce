@@ -3,9 +3,10 @@ package com.zs.my_ecommerce.dataBase
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.utils.BaseApp
 
-@Database(entities = [TableProduct::class, Favorite::class, Cart::class], version = 1)
+@Database(entities = [Product::class, Favorite::class, Cart::class], version = 1)
 abstract class MyDataBase : RoomDatabase() {
     abstract fun getProductDao(): ProductDao
     abstract fun getCartDao(): CartDao

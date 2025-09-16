@@ -15,7 +15,6 @@ data class TableProduct(
     val brand: String,
     val category: String,
     val thumbnail: String,
-    val images: List<String>? = null,
     @PrimaryKey(autoGenerate = true)
-    val uuid: Int
+    val uuid: Int = 0
 )

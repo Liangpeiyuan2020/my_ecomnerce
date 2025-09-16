@@ -12,5 +12,5 @@ data class Favorite(
     val rating: Double,
     val thumbnail: String,
     @PrimaryKey(autoGenerate = true)
-    val uuid: Int
+    val uuid: Int = 0
 )

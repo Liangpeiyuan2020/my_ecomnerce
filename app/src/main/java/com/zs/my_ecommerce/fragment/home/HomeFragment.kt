@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.adapt.ProductAdapter
 import com.zs.my_ecommerce.bean.Product
+import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +25,9 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var binding: FragmentHomeBinding
-    private val homeVm by viewModels<HomeViewModel>()
+    private val homeVm: HomeViewModel by viewModels {
+        HomeViewModelFactory(MyDataBase.getInstance())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,9 @@ class HomeFragment : Fragment() {
                 adapter = _adapter
             }
         }
+        homeVm.favorites.observe(viewLifecycleOwner) {
+            Log.i("HomeFragment", it.toString())
+        }
     }
 
     private fun onItemClick(product: Product) {
@@ -71,10 +77,12 @@ class HomeFragment : Fragment() {
 
     private fun onFavoriteClick(product: Product) {
         Log.i("homeFragment", "onFavoriteClick")
+        homeVm.addFavorite(product)
     }
 
     private fun onAddToCartClick(product: Product) {
         Log.i("homeFragment", "onAddToCartClick")
+        homeVm.getFavorites()
     }
 
     companion object {

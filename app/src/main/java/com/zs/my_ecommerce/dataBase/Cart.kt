@@ -13,5 +13,5 @@ data class Cart(
     val thumbnail: String,
     val num: Int,
     @PrimaryKey(autoGenerate = true)
-    val uuid: Int
+    val uuid: Int = 0
 )
