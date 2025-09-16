@@ -1,11 +1,8 @@
 package com.zs.my_ecommerce.repository
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
 import com.zs.my_ecommerce.bean.Product
-import com.zs.my_ecommerce.dataBase.Cart
-import com.zs.my_ecommerce.dataBase.Favorite
+import com.zs.my_ecommerce.bean.Cart
+import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.dataBase.MyDataBase
 
 class DataBaseRepository(dataBase: MyDataBase) {

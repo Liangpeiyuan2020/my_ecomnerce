@@ -3,6 +3,8 @@ package com.zs.my_ecommerce.dataBase
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.zs.my_ecommerce.bean.Cart
+import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.utils.BaseApp
 

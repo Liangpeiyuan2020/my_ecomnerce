@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.zs.my_ecommerce.api.Services
 import com.zs.my_ecommerce.bean.Product
-import com.zs.my_ecommerce.dataBase.Favorite
+import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.repository.ApiRepository
 import com.zs.my_ecommerce.repository.DataBaseRepository
