@@ -11,6 +11,8 @@ import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.repository.ApiRepository
 import com.zs.my_ecommerce.repository.DataBaseRepository
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeViewModel(val dataBase: MyDataBase) : ViewModel() {
@@ -24,6 +26,7 @@ class HomeViewModel(val dataBase: MyDataBase) : ViewModel() {
     val favorite get() = _favorites
 
 
+    private var searchJob: Job? = null
     fun getProducts() {
         viewModelScope.launch {
             _products.value = apiRepo.getProducts()
@@ -69,8 +72,19 @@ class HomeViewModel(val dataBase: MyDataBase) : ViewModel() {
     }
 
     fun search(query: String) {
-        viewModelScope.launch {
-            _products.value = apiRepo.searchProducts(query)
+        // 取消前一个未完成的请求
+        searchJob?.cancel()
+
+        searchJob = viewModelScope.launch {
+            try {
+                delay(200)
+                _products.value = apiRepo.searchProducts(query)
+            } catch (e: Exception) {
+
+            } finally {
+                searchJob?.cancel()
+            }
+
         }
     }
 }

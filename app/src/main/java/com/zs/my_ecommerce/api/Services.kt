@@ -32,7 +32,7 @@ interface Services {
         private const val BASE_URL = "https://dummyjson.com/"
         fun create(): Services {
             val logger = HttpLoggingInterceptor()
-            logger.level = Level.BODY
+            logger.level = Level.BASIC
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)
                 .build()
