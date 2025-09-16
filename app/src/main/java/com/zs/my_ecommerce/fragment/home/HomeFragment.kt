@@ -25,6 +25,8 @@ class HomeFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var pAdapter: ProductAdapter
+
     private val homeVm: HomeViewModel by viewModels {
         HomeViewModelFactory(MyDataBase.getInstance())
     }
@@ -48,27 +50,36 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("HomeFragment", "onViewCreated")
+        initRecycle()
         observe()
+        homeVm.getFavorites()
         homeVm.getProducts()
+    }
+
+    private fun initRecycle() {
+        pAdapter = ProductAdapter(
+            homeVm.favorite.value ?: emptyMap(),
+            homeVm.product.value ?: emptyList(),
+            onItemClick = { product -> onItemClick(product) },
+            onFavoriteClick = { product -> onFavoriteClick(product) },
+            onAddToCartClick = { product -> onAddToCartClick(product) }
+        )
+        binding.recycleView.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            adapter = pAdapter
+        }
     }
 
     private fun observe() {
         homeVm.product.observe(viewLifecycleOwner) {
-            Log.i("HomeFragment", it.toString())
-            val _adapter = ProductAdapter(
-                it,
-                onItemClick = { product -> onItemClick(product) },
-                onFavoriteClick = { product -> onFavoriteClick(product) },
-                onAddToCartClick = { product -> onAddToCartClick(product) }
-            )
-            binding.recycleView.apply {
-                layoutManager = GridLayoutManager(requireActivity(), 2)
-                adapter = _adapter
-            }
+            Log.i("HomeFragment", it.size.toString())
+            pAdapter.updateProducts(it)
         }
-//        homeVm.favorites.observe(viewLifecycleOwner) {
-//            Log.i("HomeFragment", it.toString())
-//        }
+        homeVm.favorite.observe(viewLifecycleOwner) {
+            Log.i("HomeFragment", "onViewCreated")
+            pAdapter.updateFavorites(it)
+
+        }
     }
 
     private fun onItemClick(product: Product) {
@@ -77,7 +88,7 @@ class HomeFragment : Fragment() {
 
     private fun onFavoriteClick(product: Product) {
         Log.i("homeFragment", "onFavoriteClick")
-        if (homeVm.favorite.contains(product.id))
+        if (homeVm.favorite.value?.contains(product.id) ?: false)
             homeVm.removeFavorite(product)
         else
             homeVm.addFavorite(product)
