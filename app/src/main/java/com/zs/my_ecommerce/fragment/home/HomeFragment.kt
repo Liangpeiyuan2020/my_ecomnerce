@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.adapt.ProductAdapter
 import com.zs.my_ecommerce.bean.Product
@@ -51,17 +53,66 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        Log.i("HomeFragment", "onViewCreated")
         initRecycle()
+        initSearchBar()
         observe()
         homeVm.getFavorites()
         homeVm.getProducts()
     }
 
-    private fun initRecycle() {
+    private fun initSearchBar() {
+        binding.searchBarProduct.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
 
+                if (query != null && query.length != 0) {
+                    Log.i("home1", query ?: "not")
+                    homeVm.search(query)
+                } else {
+                    Log.i("home2", query ?: "not")
+                    homeVm.getProducts()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null && newText.length != 0) {
+                    Log.i("home3", newText ?: "not")
+                    homeVm.search(newText)
+                } else {
+                    Log.i("home4", newText ?: "not")
+                    homeVm.getProducts()
+                }
+                return true
+            }
+
+        })
+    }
+
+    private fun initRecycle() {
+        var state = 1
+//        0，表示当前没有滚动，处于空闲状态。
+//        1，表示用户正在拖动RecyclerView进行滚动。
+//        2，表示RecyclerView正在依靠惯性滑动
+        binding.recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                state = newState
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && (state == 0 || state == 2)) {
+                    binding.collapsingToolBarLayout.visibility = View.GONE
+
+                } else if (dy < -10) {
+                    binding.collapsingToolBarLayout.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     private fun observe() {
         homeVm.product.observe(viewLifecycleOwner) {
+            Log.i("home5", it[0].title)
             pAdapter = ProductAdapter(
                 homeVm.favorite.value ?: emptyMap(),
                 homeVm.product.value ?: emptyList(),

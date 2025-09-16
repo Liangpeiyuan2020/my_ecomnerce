@@ -67,6 +67,12 @@ class HomeViewModel(val dataBase: MyDataBase) : ViewModel() {
             _favorites.value = list.associateBy { it.id }
         }
     }
+
+    fun search(query: String) {
+        viewModelScope.launch {
+            _products.value = apiRepo.searchProducts(query)
+        }
+    }
 }
 
 class HomeViewModelFactory(private val dataBase: MyDataBase) : ViewModelProvider.Factory {

@@ -26,7 +26,7 @@ interface Services {
     suspend fun getCategories(): List<String>
 
     @GET("products/search")
-    suspend fun searchProduct(@Query("query") query: String): MyResponse
+    suspend fun searchProduct(@Query("q") query: String): MyResponse
 
     companion object {
         private const val BASE_URL = "https://dummyjson.com/"
