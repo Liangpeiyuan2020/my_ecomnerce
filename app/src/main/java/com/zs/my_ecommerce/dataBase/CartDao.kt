@@ -11,8 +11,10 @@ interface CartDao {
     @Insert
     suspend fun insertCart(cart: Cart)
 
-    @Delete
-    suspend fun deleteCart(cart: Cart)
+//    @Delete
+//    suspend fun deleteCart(cart: Cart)
+    @Query(value = "DELETE FROM tableCard WHERE id = :id")
+    suspend fun deleteCart(id: Int)
 
     @Query(value = "SELECT * FROM tableCard")
     suspend fun getAllCart(): List<Cart>

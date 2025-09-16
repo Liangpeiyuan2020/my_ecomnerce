@@ -47,7 +47,7 @@ class DataBaseRepository(dataBase: MyDataBase) {
     }
 
     suspend fun deleteCart(cart: Cart) {
-        cartDao.deleteCart(cart)
+        cartDao.deleteCart(cart.id)
     }
 
     suspend fun getAllCart(): List<Cart> {
