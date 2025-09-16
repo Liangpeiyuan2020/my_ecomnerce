@@ -66,9 +66,9 @@ class HomeFragment : Fragment() {
                 adapter = _adapter
             }
         }
-        homeVm.favorites.observe(viewLifecycleOwner) {
-            Log.i("HomeFragment", it.toString())
-        }
+//        homeVm.favorites.observe(viewLifecycleOwner) {
+//            Log.i("HomeFragment", it.toString())
+//        }
     }
 
     private fun onItemClick(product: Product) {
@@ -77,12 +77,16 @@ class HomeFragment : Fragment() {
 
     private fun onFavoriteClick(product: Product) {
         Log.i("homeFragment", "onFavoriteClick")
-        homeVm.addFavorite(product)
+        if (homeVm.favorite.contains(product.id))
+            homeVm.removeFavorite(product)
+        else
+            homeVm.addFavorite(product)
     }
 
     private fun onAddToCartClick(product: Product) {
-        Log.i("homeFragment", "onAddToCartClick")
         homeVm.getFavorites()
+        Log.i("homeFragment", homeVm.favorite.toString())
+
     }
 
     companion object {

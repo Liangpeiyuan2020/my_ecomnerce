@@ -20,8 +20,9 @@ class HomeViewModel(val dataBase: MyDataBase) : ViewModel() {
     private var _products = MutableLiveData<List<Product>>()
     val product: LiveData<List<Product>> = _products
 
-    private var _favorites = MutableLiveData<List<Favorite>>()
-    val favorites: LiveData<List<Favorite>> = _favorites
+    private var _favorites = mutableMapOf<Int, Favorite>()
+    val favorite get() = _favorites
+
 
     fun getProducts() {
         viewModelScope.launch {
@@ -40,12 +41,36 @@ class HomeViewModel(val dataBase: MyDataBase) : ViewModel() {
                 product.thumbnail
             )
             dbRepo.insertFavorite(favorite)
+            _favorites.put(favorite.id, favorite)
+        }
+    }
+
+    fun removeFavorite(product: Product) {
+        viewModelScope.launch {
+            val favorite = Favorite(
+                product.id,
+                product.title,
+                product.description,
+                product.price,
+                product.rating,
+                product.thumbnail
+            )
+            dbRepo.deleteFavorite(favorite)
+            _favorites.remove(favorite.id)
         }
     }
 
     fun getFavorites() {
         viewModelScope.launch {
-            _favorites.value = dbRepo.getAllFavorite()
+            _favorites.apply {
+                dbRepo.getAllFavorite().forEach { item ->
+                    {
+                        put(
+                            item.id, item
+                        )
+                    }
+                }
+            }
         }
     }
 }
