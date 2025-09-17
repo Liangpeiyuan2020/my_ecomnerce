@@ -35,6 +35,7 @@ class CategoryAdapter(val categories: List<String>, val onItemClick: (String) ->
         fun bind(category: String, position: Int) {
             binding.buttonEachCategory.setText(category)
             binding.buttonEachCategory.setOnClickListener {
+                notifyItemChanged(selectionIndex)
                 selectionIndex = position
                 onItemClick(category)
                 notifyItemChanged(position)

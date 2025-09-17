@@ -30,25 +30,8 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycleView()
         observe()
         loadData()
-    }
-
-    private fun initRecycleView() {
-        binding.horizontalRecycleView.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = CategoryAdapter(emptyList(), onItemClick = { onCategoryItemClick(it) })
-        }
-        binding.verticalRecycleView.apply {
-            adapter = ProductAdapter(
-                emptyMap(),
-                emptyList(),
-                onItemClick = { product -> onItemClick(product) },
-                onFavoriteClick = { product -> onFavoriteClick(product) },
-                onAddToCartClick = { product -> onAddToCartClick(product) }
-            )
-        }
     }
 
     private fun loadData() {
@@ -65,6 +48,7 @@ class CategoryFragment : Fragment() {
         }
         categoryVm.products.observe(viewLifecycleOwner) {
             binding.verticalRecycleView.apply {
+                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 adapter = ProductAdapter(
                     emptyMap(),
                     it,
@@ -77,7 +61,7 @@ class CategoryFragment : Fragment() {
     }
 
     fun onCategoryItemClick(category: String) {
-
+        categoryVm.getCategorizedProduct(category)
     }
 
     fun onItemClick(product: Product) {
