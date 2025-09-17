@@ -12,11 +12,16 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
+//        binding.product = pDetailVm.product.value
+        binding.vm = pDetailVm
+        binding.lifecycleOwner = this
         setContentView(binding.root)
         observe()
         val intent = getIntent()
         val id = intent.getIntExtra("id", 0)
         loadData(id)
+
+
     }
 
     private fun loadData(id: Int) {
