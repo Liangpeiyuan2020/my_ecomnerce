@@ -8,10 +8,10 @@ import com.zs.my_ecommerce.databinding.ItemCartBinding
 
 class CartAdapter(
     val carts: List<Cart>,
-    onPlusClick: (Cart) -> Unit,
-    onMinusClick: (Cart) -> Unit,
-    onRemoveClick: (Cart) -> Unit,
-    onItemClick: (Cart) -> Unit
+    val onPlusClick: (Cart) -> Unit,
+    val onMinusClick: (Cart) -> Unit,
+    val onRemoveClick: (Cart) -> Unit,
+    val onItemClick: (Cart) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,15 +25,24 @@ class CartAdapter(
         holder: CartViewHolder,
         position: Int
     ) {
-        holder.bind(carts[position])
+        holder.bind(carts[position], position)
+
     }
 
     override fun getItemCount() = carts.size
 
     inner class CartViewHolder(val binding: ItemCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(cart: Cart) {
+        fun bind(cart: Cart, position: Int) {
             binding.cart = cart
+            binding.minusButton.setOnClickListener {
+                onMinusClick(cart)
+                notifyItemChanged(position)
+            }
+            binding.plusButton.setOnClickListener {
+                onPlusClick(cart)
+                notifyItemChanged(position)
+            }
         }
     }
 }

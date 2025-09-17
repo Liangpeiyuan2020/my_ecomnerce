@@ -10,6 +10,7 @@ import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.repository.DataBaseRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
@@ -56,19 +57,40 @@ class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
 
     fun addToCart(cart: Cart) {
         viewModelScope.launch {
-            dbRepo.insertCart(cart)
+            delay(100)
+            var newCart = _carts.value!!.find { item -> item.id == cart.id }
+            if (newCart == null) {
+                newCart = cart.copy(num = 1)
+                dbRepo.insertCart(newCart)
+            } else {
+                val num = newCart.num
+                newCart = newCart.copy(num = num + 1)
+                dbRepo.deleteCart(newCart)
+                dbRepo.insertCart(newCart)
+            }
+            getCarts()
         }
     }
 
     fun deleteFromCart(cart: Cart) {
         viewModelScope.launch {
-
+            dbRepo.deleteCart(cart)
+            getCarts()
         }
     }
 
     fun minusFromCart(cart: Cart) {
         viewModelScope.launch {
-
+            var newCart = _carts.value!!.find { item -> item.id == cart.id }
+            if (newCart != null) {
+                val num = newCart.num
+                newCart = newCart.copy(num = num - 1)
+                dbRepo.deleteCart(newCart)
+                if (num != 1) {
+                    dbRepo.insertCart(newCart)
+                }
+            }
+            getCarts()
         }
     }
 }

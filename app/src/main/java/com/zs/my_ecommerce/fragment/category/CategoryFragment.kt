@@ -14,6 +14,7 @@ import com.zs.my_ecommerce.activity.MainViewModel
 import com.zs.my_ecommerce.activity.MainViewModelFactory
 import com.zs.my_ecommerce.adapt.CategoryAdapter
 import com.zs.my_ecommerce.adapt.ProductAdapter
+import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.FragmentCategoryBinding
@@ -76,14 +77,22 @@ class CategoryFragment : Fragment() {
     }
 
     fun onAddToCartClick(product: Product) {
-
+        mainVm.addToCart(
+            Cart(
+                product.id,
+                product.title,
+                product.description,
+                product.price,
+                product.rating,
+                product.thumbnail
+            )
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        return inflater.inflate(R.layout.fragment_category, container, false)
         binding = FragmentCategoryBinding.inflate(layoutInflater)
         return binding.root
     }

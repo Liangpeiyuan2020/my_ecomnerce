@@ -15,6 +15,7 @@ import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.activity.MainViewModel
 import com.zs.my_ecommerce.activity.MainViewModelFactory
 import com.zs.my_ecommerce.adapt.ProductAdapter
+import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.FragmentHomeBinding
@@ -136,7 +137,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun onAddToCartClick(product: Product) {
-
+        mainVm.addToCart(
+            Cart(
+                product.id,
+                product.title,
+                product.description,
+                product.price,
+                product.rating,
+                product.thumbnail
+            )
+        )
 
     }
 

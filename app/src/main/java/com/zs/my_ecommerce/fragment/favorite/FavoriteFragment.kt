@@ -13,6 +13,7 @@ import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.activity.MainViewModel
 import com.zs.my_ecommerce.activity.MainViewModelFactory
 import com.zs.my_ecommerce.adapt.FavoriteAdapter
+import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.FragmentFavoriteBinding
@@ -54,7 +55,16 @@ class FavoriteFragment : Fragment() {
     }
 
     fun onAddToCartClick(favorite: Favorite) {
-
+        mainVm.addToCart(
+            Cart(
+                favorite.id,
+                favorite.title,
+                favorite.description,
+                favorite.price,
+                favorite.rating,
+                favorite.thumbnail
+            )
+        )
     }
 
     fun onDeleteClick(favorite: Favorite) {

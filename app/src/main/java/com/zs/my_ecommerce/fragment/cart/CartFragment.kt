@@ -52,20 +52,21 @@ class CartFragment : Fragment() {
                         onItemClick(it)
                     }
                 )
+//                adapter.
             }
         }
     }
 
     fun onPlusClick(cart: Cart) {
-
+        mainVm.addToCart(cart)
     }
 
     fun onMinusClick(cart: Cart) {
-
+        mainVm.minusFromCart(cart)
     }
 
     fun onRemoveClick(cart: Cart) {
-
+        mainVm.deleteFromCart(cart)
     }
 
     fun onItemClick(cart: Cart) {
