@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zs.my_ecommerce.R
+import com.zs.my_ecommerce.activity.MainViewModel
+import com.zs.my_ecommerce.activity.MainViewModelFactory
 import com.zs.my_ecommerce.adapt.ProductAdapter
 import com.zs.my_ecommerce.bean.Product
 import com.zs.my_ecommerce.dataBase.MyDataBase
@@ -33,8 +36,9 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var pAdapter: ProductAdapter
 
-    private val homeVm: HomeViewModel by viewModels {
-        HomeViewModelFactory(MyDataBase.getInstance())
+    private val homeVm: HomeViewModel by viewModels()
+    private val mainVm: MainViewModel by activityViewModels {
+        MainViewModelFactory(MyDataBase.getInstance())
     }
 
     override fun onCreateView(
@@ -51,7 +55,7 @@ class HomeFragment : Fragment() {
         initRecycle()
         initSearchBar()
         observe()
-        homeVm.getFavorites()
+        mainVm.getFavorites()
         homeVm.getProducts()
     }
 
@@ -110,7 +114,7 @@ class HomeFragment : Fragment() {
         homeVm.product.observe(viewLifecycleOwner) {
             Log.i("home5", it[0].title)
             pAdapter = ProductAdapter(
-                homeVm.favorite.value ?: emptyMap(),
+                mainVm.favorites.value ?: emptyMap(),
                 homeVm.product.value ?: emptyList(),
                 onItemClick = { product -> onItemClick(product) },
                 onFavoriteClick = { product -> onFavoriteClick(product) },
@@ -128,19 +132,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun onFavoriteClick(product: Product) {
-        if (homeVm.favorite.value!!.contains(product.id)) {
-            homeVm.removeFavorite(product)
-//            Log.i("homeFragment", "remove")
-        } else {
-            homeVm.addFavorite(product)
-//            Log.i("homeFragment", "add")
-        }
-
+        mainVm.favoriteOperator(product)
     }
 
     private fun onAddToCartClick(product: Product) {
-        homeVm.getFavorites()
-        Log.i("homeFragment", homeVm.favorite.value?.size.toString())
+
 
     }
 
