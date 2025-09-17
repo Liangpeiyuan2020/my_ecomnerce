@@ -5,6 +5,10 @@ import com.zs.my_ecommerce.bean.Product
 
 
 class ApiRepository(val services: Services) {
+    suspend fun getProductDetail(id: Int): Product {
+        return services.getProductDetail(id)
+    }
+
     suspend fun getProducts(): List<Product> {
         return services.getProducts().products
     }

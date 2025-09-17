@@ -1,7 +1,9 @@
 package com.zs.my_ecommerce.bean
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "tableProduct")
 data class Product(
@@ -17,4 +19,8 @@ data class Product(
     val thumbnail: String,
     @PrimaryKey(autoGenerate = true)
     val uuid: Int = 0
-)
+){
+    @Ignore
+    @SerializedName("images")
+    var images: List<String> = emptyList()
+}
