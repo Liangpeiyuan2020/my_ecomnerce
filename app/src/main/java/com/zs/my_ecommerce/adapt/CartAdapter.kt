@@ -7,7 +7,7 @@ import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.databinding.ItemCartBinding
 
 class CartAdapter(
-    val carts: List<Cart>,
+    var carts: MutableList<Cart>,
     val onPlusClick: (Cart) -> Unit,
     val onMinusClick: (Cart) -> Unit,
     val onRemoveClick: (Cart) -> Unit,
@@ -36,11 +36,20 @@ class CartAdapter(
         fun bind(cart: Cart, position: Int) {
             binding.cart = cart
             binding.minusButton.setOnClickListener {
+                val num = cart.num
                 onMinusClick(cart)
-                notifyItemChanged(position)
+                if (num == 1) {
+                    carts.removeAt(position)
+                    notifyItemChanged(position)
+                    notifyItemRangeChanged(position, carts.size)
+                } else {
+                    cart.num -= 1
+                    notifyItemChanged(position)
+                }
             }
             binding.plusButton.setOnClickListener {
                 onPlusClick(cart)
+                cart.num += 1
                 notifyItemChanged(position)
             }
         }

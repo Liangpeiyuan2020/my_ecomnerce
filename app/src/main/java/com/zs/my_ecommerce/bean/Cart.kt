@@ -11,7 +11,7 @@ data class Cart(
     val price: Double,
     val rating: Double,
     val thumbnail: String,
-    val num: Int = 0,
+    var num: Int = 0,
     @PrimaryKey(autoGenerate = true)
     val uuid: Int = 0
 )

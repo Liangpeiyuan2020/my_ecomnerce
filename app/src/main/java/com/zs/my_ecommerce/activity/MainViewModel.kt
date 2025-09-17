@@ -68,14 +68,14 @@ class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
                 dbRepo.deleteCart(newCart)
                 dbRepo.insertCart(newCart)
             }
-            getCarts()
+//            getCarts()
         }
     }
 
     fun deleteFromCart(cart: Cart) {
         viewModelScope.launch {
             dbRepo.deleteCart(cart)
-            getCarts()
+//            getCarts()
         }
     }
 
@@ -90,7 +90,7 @@ class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
                     dbRepo.insertCart(newCart)
                 }
             }
-            getCarts()
+//            getCarts()
         }
     }
 }

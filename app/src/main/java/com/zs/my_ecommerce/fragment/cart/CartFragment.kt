@@ -44,7 +44,7 @@ class CartFragment : Fragment() {
             binding.recycleView.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 adapter = CartAdapter(
-                    it,
+                    it.toMutableList(),
                     onPlusClick = { onPlusClick(it) },
                     onMinusClick = { onMinusClick(it) },
                     onRemoveClick = { onRemoveClick(it) },
@@ -52,7 +52,6 @@ class CartFragment : Fragment() {
                         onItemClick(it)
                     }
                 )
-//                adapter.
             }
         }
     }
