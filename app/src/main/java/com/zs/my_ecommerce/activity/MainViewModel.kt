@@ -47,6 +47,30 @@ class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
             _favorites.value = list.associateBy { it.id }
         }
     }
+
+    fun getCarts() {
+        viewModelScope.launch {
+            _carts.value = dbRepo.getAllCart()
+        }
+    }
+
+    fun addToCart(cart: Cart) {
+        viewModelScope.launch {
+            dbRepo.insertCart(cart)
+        }
+    }
+
+    fun deleteFromCart(cart: Cart) {
+        viewModelScope.launch {
+
+        }
+    }
+
+    fun minusFromCart(cart: Cart) {
+        viewModelScope.launch {
+
+        }
+    }
 }
 
 class MainViewModelFactory(val dataBase: MyDataBase) : ViewModelProvider.Factory {
