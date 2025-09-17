@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zs.my_ecommerce.R
+import com.zs.my_ecommerce.activity.MainViewModel
+import com.zs.my_ecommerce.activity.MainViewModelFactory
 import com.zs.my_ecommerce.adapt.CategoryAdapter
 import com.zs.my_ecommerce.adapt.ProductAdapter
 import com.zs.my_ecommerce.bean.Product
@@ -18,15 +21,14 @@ import com.zs.my_ecommerce.databinding.FragmentHomeBinding
 
 class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
-    private val categoryVm: CategoryViewModel by viewModels {
-        CategoryViewModelFactory(MyDataBase.getInstance())
+    private val categoryVm: CategoryViewModel by viewModels()
+    private val mainVm: MainViewModel by activityViewModels {
+        MainViewModelFactory(MyDataBase.getInstance())
     }
 
     companion object {
         fun newInstance() = CategoryFragment()
     }
-
-    private val viewModel: CategoryViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +37,7 @@ class CategoryFragment : Fragment() {
     }
 
     private fun loadData() {
+        mainVm.getFavorites()
         categoryVm.getCategories()
         categoryVm.getCategorizedProduct("beauty")
     }
@@ -50,7 +53,7 @@ class CategoryFragment : Fragment() {
             binding.verticalRecycleView.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 adapter = ProductAdapter(
-                    emptyMap(),
+                    mainVm.favorites.value ?: emptyMap(),
                     it,
                     onItemClick = { product -> onItemClick(product) },
                     onFavoriteClick = { product -> onFavoriteClick(product) },
@@ -69,7 +72,7 @@ class CategoryFragment : Fragment() {
     }
 
     fun onFavoriteClick(product: Product) {
-
+        mainVm.favoriteOperator(product)
     }
 
     fun onAddToCartClick(product: Product) {

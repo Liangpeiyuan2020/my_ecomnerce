@@ -13,9 +13,8 @@ import com.zs.my_ecommerce.repository.ApiRepository
 import com.zs.my_ecommerce.repository.DataBaseRepository
 import kotlinx.coroutines.launch
 
-class CategoryViewModel(val dataBase: MyDataBase) : ViewModel() {
+class CategoryViewModel : ViewModel() {
     private val apiRepo = ApiRepository(Services.create())
-    private val dbRepo = DataBaseRepository(dataBase)
 
     private var _categories = MutableLiveData<List<String>>()
     val categories: LiveData<List<String>> = _categories
@@ -34,15 +33,5 @@ class CategoryViewModel(val dataBase: MyDataBase) : ViewModel() {
         viewModelScope.launch {
             _products.value = apiRepo.getCategorizedProduct(category)
         }
-    }
-}
-
-class CategoryViewModelFactory(val dataBase: MyDataBase) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return CategoryViewModel(dataBase) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

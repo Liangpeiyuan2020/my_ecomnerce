@@ -1,6 +1,7 @@
 package com.zs.my_ecommerce.activity
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.databinding.ActivityMainBinding
@@ -8,6 +9,7 @@ import com.zs.my_ecommerce.databinding.ActivityMainBinding
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.fragment.cart.CartFragment
 import com.zs.my_ecommerce.fragment.category.CategoryFragment
 import com.zs.my_ecommerce.fragment.favorite.FavoriteFragment
@@ -17,6 +19,10 @@ import com.zs.my_ecommerce.fragment.profile.ProfileFragment
 class MainActivity : AppCompatActivity() {
     //    private lateinit var binding: ViewDataBinding
     private lateinit var binding: ActivityMainBinding
+    private val mainVm: MainViewModel by viewModels {
+        MainViewModelFactory(MyDataBase.getInstance())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        mainVm.getFavorites()
         initBottomNavigation()
         replaceFragment(HomeFragment.newInstance())
     }
