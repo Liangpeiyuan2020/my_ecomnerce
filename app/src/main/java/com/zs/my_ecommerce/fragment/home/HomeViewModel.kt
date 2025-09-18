@@ -6,12 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zs.my_ecommerce.api.Services
 import com.zs.my_ecommerce.bean.Product
+import com.zs.my_ecommerce.common.BaseViewModel
 import com.zs.my_ecommerce.repository.ApiRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
     private val apiRepo = ApiRepository(Services.create())
 
     private var _products = MutableLiveData<List<Product>>()
@@ -20,7 +21,8 @@ class HomeViewModel : ViewModel() {
     private var searchJob: Job? = null
     fun getProducts() {
         viewModelScope.launch {
-            _products.value = apiRepo.getProducts()
+
+            _products.value = callApi { apiRepo.getProducts() } ?: emptyList()
         }
     }
 

@@ -115,7 +115,6 @@ class HomeFragment : Fragment() {
 
     private fun observe() {
         homeVm.product.observe(viewLifecycleOwner) {
-            Log.i("home5", it[0].title)
             pAdapter = ProductAdapter(
                 mainVm.favorites.value ?: emptyMap(),
                 homeVm.product.value ?: emptyList(),

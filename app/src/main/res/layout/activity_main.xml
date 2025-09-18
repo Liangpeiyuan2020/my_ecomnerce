@@ -27,4 +27,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_view" />
 
+    <com.zs.my_ecommerce.common.LoadingTip
+        android:id="@+id/loadingTip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="54dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout><!--</layout>-->

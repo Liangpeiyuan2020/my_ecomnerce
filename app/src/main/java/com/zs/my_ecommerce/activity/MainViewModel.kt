@@ -8,12 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.bean.Product
+import com.zs.my_ecommerce.common.GlobalLoadingState
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.repository.DataBaseRepository
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicInteger
 
 class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
+
     private val dbRepo = DataBaseRepository(dataBase)
 
     private var _favorites = MutableLiveData<Map<Int, Favorite>>(emptyMap())
