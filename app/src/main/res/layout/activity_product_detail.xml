@@ -22,7 +22,7 @@
         tools:context=".activity.ProductDetailActivity">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/backButton1"
+            android:id="@+id/backButton"
             android:layout_width="44dp"
             android:layout_height="38dp"
             android:layout_margin="16dp"
@@ -34,8 +34,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:overScrollMode="never"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <CheckBox
-            android:id="@+id/favorite"
+            android:id="@+id/favoriteCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -46,23 +55,15 @@
             app:useMaterialThemeColors="false" />
 
         <CheckBox
-            android:id="@+id/cart"
+            android:id="@+id/cartCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:background="@drawable/ripple_bg"
             android:button="@drawable/selector_cart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/favorite"
+            app:layout_constraintTop_toBottomOf="@id/favoriteCheckBox"
             app:useMaterialThemeColors="false" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:overScrollMode="never"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
             android:id="@+id/dotsIndicator"
@@ -130,7 +131,7 @@
             android:layout_marginBottom="30dp"
             android:numStars="5"
             android:progressTint="@color/dark_orange"
-            android:rating="4.4"
+            android:rating="@{vm.product.rating}"
             android:scaleX="0.4"
             android:scaleY="0.4"
             android:stepSize="0.1"
@@ -144,9 +145,9 @@
             android:id="@+id/textStock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:paddingStart="1dp"
             android:paddingEnd="1dp"
-            android:layout_marginTop="20dp"
             android:text="Stock:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
