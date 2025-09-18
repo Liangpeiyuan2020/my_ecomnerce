@@ -52,6 +52,9 @@ class CartAdapter(
                 cart.num += 1
                 notifyItemChanged(position)
             }
+            binding.cardView.setOnClickListener {
+                onItemClick(cart)
+            }
         }
     }
 }

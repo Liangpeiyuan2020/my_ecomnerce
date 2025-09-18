@@ -8,9 +8,9 @@ import com.zs.my_ecommerce.databinding.ItemFavoriteBinding
 
 class FavoriteAdapter(
     val favorites: List<Favorite>,
-    onItemClick: (Favorite) -> Unit,
-    onAddToCartClick: (Favorite) -> Unit,
-    onDeleteClick: (Favorite) -> Unit
+    val onItemClick: (Favorite) -> Unit,
+    val onAddToCartClick: (Favorite) -> Unit,
+    val onDeleteClick: (Favorite) -> Unit
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,6 +34,9 @@ class FavoriteAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: Favorite) {
             binding.favorite = favorite
+            binding.cardView.setOnClickListener {
+                onItemClick(favorite)
+            }
         }
     }
 }

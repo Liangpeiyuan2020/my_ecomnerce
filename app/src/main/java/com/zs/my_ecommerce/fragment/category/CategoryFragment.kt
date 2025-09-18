@@ -1,5 +1,6 @@
 package com.zs.my_ecommerce.fragment.category
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.activity.MainViewModel
 import com.zs.my_ecommerce.activity.MainViewModelFactory
+import com.zs.my_ecommerce.activity.ProductDetailActivity
 import com.zs.my_ecommerce.adapt.CategoryAdapter
 import com.zs.my_ecommerce.adapt.ProductAdapter
 import com.zs.my_ecommerce.bean.Cart
@@ -69,7 +71,9 @@ class CategoryFragment : Fragment() {
     }
 
     fun onItemClick(product: Product) {
-
+        val intent = Intent(context, ProductDetailActivity::class.java)
+        intent.putExtra("id", product.id)
+        startActivity(intent)
     }
 
     fun onFavoriteClick(product: Product) {

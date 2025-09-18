@@ -1,5 +1,6 @@
 package com.zs.my_ecommerce.fragment.cart
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zs.my_ecommerce.R
 import com.zs.my_ecommerce.activity.MainViewModel
 import com.zs.my_ecommerce.activity.MainViewModelFactory
+import com.zs.my_ecommerce.activity.ProductDetailActivity
 import com.zs.my_ecommerce.adapt.CartAdapter
 import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.dataBase.MyDataBase
@@ -48,9 +50,7 @@ class CartFragment : Fragment() {
                     onPlusClick = { onPlusClick(it) },
                     onMinusClick = { onMinusClick(it) },
                     onRemoveClick = { onRemoveClick(it) },
-                    onItemClick = {
-                        onItemClick(it)
-                    }
+                    onItemClick = { onItemClick(it) }
                 )
             }
         }
@@ -69,7 +69,9 @@ class CartFragment : Fragment() {
     }
 
     fun onItemClick(cart: Cart) {
-
+        val intent = Intent(context, ProductDetailActivity::class.java)
+        intent.putExtra("id", cart.id)
+        startActivity(intent)
     }
 
     override fun onCreateView(
