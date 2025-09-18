@@ -9,11 +9,36 @@
             type="com.zs.my_ecommerce.bean.Cart" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        app:dragEdge="right"
+        app:flingVelocity="300"
+        app:mode="same_level">
+
+        <!-- 隐藏的按钮区域（左滑后显示） -->
+        <LinearLayout
+            android:id="@+id/hidden_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- 删除按钮 -->
+            <TextView
+                android:id="@+id/slideDeleteBtn"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="#F44336"
+                android:gravity="center"
+                android:text="Delete"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -122,5 +147,5 @@
                     tools:text="19.9" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.chauthai.swipereveallayout.SwipeRevealLayout>
 </layout>

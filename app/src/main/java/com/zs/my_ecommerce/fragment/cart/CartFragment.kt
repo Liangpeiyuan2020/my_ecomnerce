@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -26,6 +27,7 @@ class CartFragment : Fragment() {
         MainViewModelFactory(MyDataBase.getInstance())
     }
     private lateinit var binding: FragmentCartBinding
+    private lateinit var cartAdapter: CartAdapter
 
     companion object {
         fun newInstance() = CartFragment()
@@ -34,8 +36,26 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onClick()
         observe()
         loadDate()
+    }
+
+    private fun onClick() {
+        binding.recycleView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                when (e.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // 当手指按下时，关闭所有打开的滑动项
+                        cartAdapter.closeAllItems(binding.recycleView)
+                    }
+                }
+                return false
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        })
     }
 
     private fun loadDate() {
@@ -46,13 +66,14 @@ class CartFragment : Fragment() {
         mainVm.carts.observeOnce(viewLifecycleOwner) {
             binding.recycleView.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                adapter = CartAdapter(
+                cartAdapter = CartAdapter(
                     it.toMutableList(),
                     onPlusClick = { onPlusClick(it) },
                     onMinusClick = { onMinusClick(it) },
                     onRemoveClick = { onRemoveClick(it) },
                     onItemClick = { onItemClick(it) }
                 )
+                adapter = cartAdapter
             }
         }
         mainVm.carts.observe(viewLifecycleOwner) {

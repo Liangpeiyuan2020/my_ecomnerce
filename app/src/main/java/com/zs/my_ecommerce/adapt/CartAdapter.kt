@@ -55,6 +55,21 @@ class CartAdapter(
             binding.cardView.setOnClickListener {
                 onItemClick(cart)
             }
+            binding.slideDeleteBtn.setOnClickListener {
+                onRemoveClick(cart)
+                carts.removeAt(position)
+                notifyItemChanged(position)
+                notifyItemRangeChanged(position, carts.size)
+            }
+        }
+    }
+
+    // 添加关闭所有滑动项的方法
+    fun closeAllItems(recyclerView: RecyclerView) {
+        for (i in 0 until recyclerView.childCount) {
+            val view = recyclerView.getChildAt(i)
+            val holder = recyclerView.getChildViewHolder(view) as? CartViewHolder
+            holder?.binding?.swipeLayout?.close(true)
         }
     }
 }

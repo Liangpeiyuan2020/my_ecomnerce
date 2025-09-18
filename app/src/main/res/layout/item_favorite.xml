@@ -46,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:background="#F44336"
                 android:gravity="center"
-                android:text="Remove From Favorites"
+                android:text="Delete"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
