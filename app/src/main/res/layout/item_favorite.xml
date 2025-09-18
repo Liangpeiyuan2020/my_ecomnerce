@@ -16,8 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
+        app:dragEdge="right"
         app:flingVelocity="300"
-        app:dragEdge="left"
         app:mode="same_level">
 
         <!-- 隐藏的按钮区域（左滑后显示） -->
@@ -30,22 +30,22 @@
 
             <!-- 编辑按钮 -->
             <Button
-                android:id="@+id/btn_edit"
+                android:id="@+id/slideAddBtn"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:background="#FF9800"
                 android:gravity="center"
-                android:text="编辑"
+                android:text="Add To Cart"
                 android:textColor="#FFFFFF" />
 
             <!-- 删除按钮 -->
             <Button
-                android:id="@+id/btn_delete"
+                android:id="@+id/slideDeleteBtn"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:background="#F44336"
                 android:gravity="center"
-                android:text="删除"
+                android:text="Remove From Favorites"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

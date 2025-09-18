@@ -23,6 +23,13 @@ class MainViewModel(val dataBase: MyDataBase) : ViewModel() {
     val carts: LiveData<List<Cart>> = _carts
 
 
+    fun removeFromFavorites(favorite: Favorite) {
+        viewModelScope.launch {
+            dbRepo.deleteFavorite(favorite)
+            getFavorites()
+        }
+    }
+
     fun favoriteOperator(product: Product) {
         val favorite = Favorite(
             product.id,

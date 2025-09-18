@@ -11,9 +11,11 @@ import com.zs.my_ecommerce.databinding.ItemFavoriteBinding
 class FavoriteAdapter(
     val favorites: List<Favorite>,
     val onItemClick: (Favorite) -> Unit,
-    val onAddToCartClick: (Favorite) -> Unit,
-    val onDeleteClick: (Favorite) -> Unit
+
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+
+    var onAddToCartClick: ((Favorite) -> Unit)? = null
+    var onDeleteClick: ((Favorite) -> Unit)? = null
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -40,6 +42,14 @@ class FavoriteAdapter(
             binding.favorite = favorite
             binding.cardView.setOnClickListener {
                 onItemClick(favorite)
+            }
+            binding.slideAddBtn.setOnClickListener {
+                onAddToCartClick?.invoke(favorite)
+                binding.swipeLayout.close(true)
+            }
+            binding.slideDeleteBtn.setOnClickListener {
+                onDeleteClick?.invoke(favorite)
+                binding.swipeLayout.close(true)
             }
             // 监听滑动状态变化
             binding.swipeLayout.setSwipeListener(object : SwipeRevealLayout.SwipeListener {

@@ -67,9 +67,13 @@ class FavoriteFragment : Fragment() {
                 favoriteAdapter = FavoriteAdapter(
                     favoriteList,
                     onItemClick = { onItemClick(it) },
-                    onAddToCartClick = { onAddToCartClick(it) },
-                    onDeleteClick = { onDeleteClick(it) })
+//                    onAddToCartClick = { onAddToCartClick(it) },
+//                    onDeleteClick = { onDeleteClick(it) }
+                )
                 adapter = favoriteAdapter
+
+                favoriteAdapter.onAddToCartClick = { onAddToCartClick(it) }
+                favoriteAdapter.onDeleteClick = { onDeleteClick(it) }
             }
         }
     }
@@ -94,7 +98,7 @@ class FavoriteFragment : Fragment() {
     }
 
     fun onDeleteClick(favorite: Favorite) {
-
+        mainVm.removeFromFavorites(favorite)
     }
 
     override fun onCreateView(
