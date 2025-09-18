@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -23,6 +24,7 @@ import com.zs.my_ecommerce.databinding.FragmentFavoriteBinding
 class FavoriteFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteBinding
     private val favoriteVm: FavoriteViewModel by viewModels()
+    private lateinit var favoriteAdapter: FavoriteAdapter
     private val mainVm: MainViewModel by activityViewModels {
         MainViewModelFactory(MyDataBase.getInstance())
     }
@@ -34,8 +36,27 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onClick()
         observe()
         mainVm.getFavorites()
+    }
+
+    private fun onClick() {
+        // 处理RecyclerView的滑动冲突
+        binding.recycleView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                when (e.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // 当手指按下时，关闭所有打开的滑动项
+                        favoriteAdapter.closeAllItems(binding.recycleView)
+                    }
+                }
+                return false
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        })
     }
 
     private fun observe() {
@@ -43,11 +64,12 @@ class FavoriteFragment : Fragment() {
             val favoriteList = it.values.toList()
             binding.recycleView.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                adapter = FavoriteAdapter(
+                favoriteAdapter = FavoriteAdapter(
                     favoriteList,
                     onItemClick = { onItemClick(it) },
                     onAddToCartClick = { onAddToCartClick(it) },
                     onDeleteClick = { onDeleteClick(it) })
+                adapter = favoriteAdapter
             }
         }
     }

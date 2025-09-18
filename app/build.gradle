@@ -119,6 +119,8 @@ dependencies {
 
     implementation 'com.tbuonomo:dotsindicator:4.3' // 指示器库
 
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+
     // MagicIndicator
 //    implementation "com.github.hackware1993:MagicIndicator:$magic_version"
 //    implementation 'com.github.hackware1993:MagicIndicator:1.6.0' // for support lib
