@@ -46,10 +46,8 @@ class ProductDetailViewModel(val dataBase: MyDataBase) : ViewModel() {
         )
         viewModelScope.launch {
             if (_favorites.value!!.contains(favorite.id)) {
-                Log.i("observe3", "")
                 dbRepo.deleteFavorite(favorite)
             } else {
-                Log.i("observe4", "")
                 dbRepo.insertFavorite(favorite)
             }
             getFavorites()
