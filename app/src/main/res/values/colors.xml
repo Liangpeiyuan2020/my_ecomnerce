@@ -20,7 +20,7 @@
     <color name="green_alternative">#64ba69</color>
 
     <color name="colorPrimary">#666666</color>
-    <color name="colorPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="colorPrimaryDark">#666666</color>
     <color name="colorAccent">#EF3939</color>
     <color name="main_bg_1">#ffffff</color>
     <color name="main_bg_2">#EFEFEF</color>
@@ -35,7 +35,7 @@
     <color name="float_bg">#F2FFFFFF</color>
 
     <color name="division_line">#EDEDED</color>
-
+    <color name="red">#EF3939</color>
 </resources>
 
 
