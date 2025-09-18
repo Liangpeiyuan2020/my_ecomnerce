@@ -9,6 +9,7 @@ import com.zs.my_ecommerce.databinding.ActivityMainBinding
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.zs.my_ecommerce.common.MyNavigationController
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.fragment.cart.CartFragment
 import com.zs.my_ecommerce.fragment.category.CategoryFragment
@@ -16,7 +17,7 @@ import com.zs.my_ecommerce.fragment.favorite.FavoriteFragment
 import com.zs.my_ecommerce.fragment.home.HomeFragment
 import com.zs.my_ecommerce.fragment.profile.ProfileFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MyNavigationController {
     //    private lateinit var binding: ViewDataBinding
     private lateinit var binding: ActivityMainBinding
     private val mainVm: MainViewModel by viewModels {
@@ -71,4 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 实现接口方法
+    override fun navigateToTab(itemId: Int) {
+        binding.bottomNavigationView.selectedItemId = itemId
+    }
 }
