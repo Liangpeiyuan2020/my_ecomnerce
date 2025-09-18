@@ -16,6 +16,7 @@ import com.zs.my_ecommerce.activity.MainViewModelFactory
 import com.zs.my_ecommerce.activity.ProductDetailActivity
 import com.zs.my_ecommerce.adapt.CartAdapter
 import com.zs.my_ecommerce.bean.Cart
+import com.zs.my_ecommerce.common.observeOnce
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.FragmentCartBinding
 
@@ -42,7 +43,7 @@ class CartFragment : Fragment() {
     }
 
     private fun observe() {
-        mainVm.carts.observe(viewLifecycleOwner) {
+        mainVm.carts.observeOnce(viewLifecycleOwner) {
             binding.recycleView.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 adapter = CartAdapter(
@@ -53,6 +54,10 @@ class CartFragment : Fragment() {
                     onItemClick = { onItemClick(it) }
                 )
             }
+        }
+        mainVm.carts.observe(viewLifecycleOwner) {
+            val totalPrice: Float = it.sumOf { (it.price * it.num).toDouble() }.toFloat()
+            binding.totalAmount.text = totalPrice.toString()
         }
     }
 
