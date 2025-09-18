@@ -77,6 +77,7 @@ class FavoriteFragment : Fragment() {
                 favoriteAdapter.onDeleteClick = { onDeleteClick(it) }
             }
             if (it.size == 0) binding.loadingTip.showEmpty()
+            else binding.loadingTip.dismiss()
         }
     }
 

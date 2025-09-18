@@ -64,6 +64,7 @@ class CategoryFragment : Fragment() {
                 )
             }
             if (it.size == 0) binding.loadingTip.showEmpty()
+            else binding.loadingTip.dismiss()
         }
     }
 

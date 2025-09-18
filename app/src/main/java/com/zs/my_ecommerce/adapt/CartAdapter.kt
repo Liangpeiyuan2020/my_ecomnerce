@@ -57,9 +57,11 @@ class CartAdapter(
             }
             binding.slideDeleteBtn.setOnClickListener {
                 onRemoveClick(cart)
+                binding.swipeLayout.close(true)
                 carts.removeAt(position)
-                notifyItemChanged(position)
+                notifyItemRemoved(position)
                 notifyItemRangeChanged(position, carts.size)
+
             }
         }
     }
