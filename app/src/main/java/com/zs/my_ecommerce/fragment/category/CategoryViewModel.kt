@@ -7,13 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.zs.my_ecommerce.api.Services
 import com.zs.my_ecommerce.bean.Product
+import com.zs.my_ecommerce.common.BaseViewModel
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.fragment.home.HomeViewModel
 import com.zs.my_ecommerce.repository.ApiRepository
 import com.zs.my_ecommerce.repository.DataBaseRepository
 import kotlinx.coroutines.launch
 
-class CategoryViewModel : ViewModel() {
+class CategoryViewModel : BaseViewModel() {
     private val apiRepo = ApiRepository(Services.create())
 
     private var _categories = MutableLiveData<List<String>>()
@@ -24,14 +25,14 @@ class CategoryViewModel : ViewModel() {
 
     fun getCategories() {
         viewModelScope.launch {
-            _categories.value = apiRepo.getCategories()
+            _categories.value = callApi { apiRepo.getCategories() } ?: emptyList()
 
         }
     }
 
     fun getCategorizedProduct(category: String) {
         viewModelScope.launch {
-            _products.value = apiRepo.getCategorizedProduct(category)
+            _products.value = callApi { apiRepo.getCategorizedProduct(category) } ?: emptyList()
         }
     }
 }

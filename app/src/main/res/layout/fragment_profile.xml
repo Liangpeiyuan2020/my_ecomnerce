@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/ripple_bg"
+                android:background="@drawable/ripple_bg_add"
                 android:gravity="center"
                 android:text="LOGIN OUT"
                 android:textColor="@color/red"

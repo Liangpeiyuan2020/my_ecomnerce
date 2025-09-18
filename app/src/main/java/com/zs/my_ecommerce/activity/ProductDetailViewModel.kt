@@ -10,13 +10,14 @@ import com.zs.my_ecommerce.api.Services
 import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.bean.Product
+import com.zs.my_ecommerce.common.BaseViewModel
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.repository.ApiRepository
 import com.zs.my_ecommerce.repository.DataBaseRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ProductDetailViewModel(val dataBase: MyDataBase) : ViewModel() {
+class ProductDetailViewModel(val dataBase: MyDataBase) : BaseViewModel() {
     private val apiRepo = ApiRepository(Services.create())
     private val dbRepo = DataBaseRepository(dataBase)
 
@@ -31,7 +32,7 @@ class ProductDetailViewModel(val dataBase: MyDataBase) : ViewModel() {
 
     fun getProductDetail(id: Int) {
         viewModelScope.launch {
-            _product.value = apiRepo.getProductDetail(id)
+            _product.value = callApi { apiRepo.getProductDetail(id) } ?: null
         }
     }
 

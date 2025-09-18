@@ -47,7 +47,8 @@
             android:id="@+id/favoriteCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
             android:background="@drawable/ripple_bg"
             android:button="@drawable/selector_favorites"
             app:layout_constraintEnd_toEndOf="parent"
@@ -199,5 +200,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/productPrice" />
 
+        <com.zs.my_ecommerce.common.LoadingTip
+            android:elevation="100dp"
+            android:id="@+id/loadingTip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="54dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

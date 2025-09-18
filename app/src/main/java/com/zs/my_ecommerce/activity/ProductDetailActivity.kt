@@ -4,9 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.zs.my_ecommerce.adapt.ImageAdapter
+import com.zs.my_ecommerce.common.AppGlobals
+import com.zs.my_ecommerce.common.GlobalLoadingState
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.ActivityProductDetailBinding
+import kotlinx.coroutines.launch
 
 class ProductDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailBinding
@@ -22,6 +28,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         setContentView(binding.root)
 
+        setupLoadingOverlay()
         onClick()
         observe()
 
@@ -29,6 +36,20 @@ class ProductDetailActivity : AppCompatActivity() {
         productId = intent.getIntExtra("id", 0)
         loadData(productId)
 
+    }
+
+    private fun setupLoadingOverlay() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                AppGlobals.loadingState.collect { state ->
+                    when (state) {
+                        GlobalLoadingState.LOADING -> binding.loadingTip.loading()
+                        GlobalLoadingState.PAGING_LOADING_MORE -> binding.loadingTip.showEmpty()
+                        else -> binding.loadingTip.dismiss()
+                    }
+                }
+            }
+        }
     }
 
     private fun onClick() {
@@ -54,7 +75,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun observe() {
         pDetailVm.product.observe(this) {
-            binding.viewPager.adapter = ImageAdapter(it.images)
+            binding.viewPager.adapter = ImageAdapter(it!!.images)
             binding.dotsIndicator.attachTo(binding.viewPager)
         }
         pDetailVm.favorites.observe(this) {
