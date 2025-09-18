@@ -63,6 +63,7 @@ class CategoryFragment : Fragment() {
                     onAddToCartClick = { product -> onAddToCartClick(product) }
                 )
             }
+            if (it.size == 0) binding.loadingTip.showEmpty()
         }
     }
 

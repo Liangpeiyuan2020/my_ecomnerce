@@ -76,6 +76,7 @@ class FavoriteFragment : Fragment() {
                 favoriteAdapter.onAddToCartClick = { onAddToCartClick(it) }
                 favoriteAdapter.onDeleteClick = { onDeleteClick(it) }
             }
+            if (it.size == 0) binding.loadingTip.showEmpty()
         }
     }
 

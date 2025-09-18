@@ -126,6 +126,9 @@ class HomeFragment : Fragment() {
                 layoutManager = GridLayoutManager(requireActivity(), 2)
                 adapter = pAdapter
             }
+            if (it.size == 0) {
+                binding.loadingTip.showEmpty()
+            }
         }
     }
 

@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无数据"
+            android:text="No Data"
             android:textColor="@color/theme_color_2"
             android:textSize="15.5sp"
             android:layout_marginTop="10dp"/>
@@ -48,13 +48,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="网络异常"
+            android:text="Network Error"
             android:textColor="@color/theme_color_2"
             android:textSize="15.5sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请点击刷新"
+            android:text="Please click Refresh"
             android:textColor="@color/colorAccent"
             android:textSize="15.5sp" />
     </LinearLayout>

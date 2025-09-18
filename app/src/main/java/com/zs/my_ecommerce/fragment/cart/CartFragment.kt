@@ -75,6 +75,7 @@ class CartFragment : Fragment() {
                 )
                 adapter = cartAdapter
             }
+            if (it.size == 0) binding.loadingTip.showEmpty()
         }
         mainVm.carts.observe(viewLifecycleOwner) {
             val totalPrice: Float = it.sumOf { (it.price * it.num).toDouble() }.toFloat()
