@@ -18,6 +18,7 @@ import com.zs.my_ecommerce.activity.ProductDetailActivity
 import com.zs.my_ecommerce.adapt.FavoriteAdapter
 import com.zs.my_ecommerce.bean.Cart
 import com.zs.my_ecommerce.bean.Favorite
+import com.zs.my_ecommerce.common.observeOnce
 import com.zs.my_ecommerce.dataBase.MyDataBase
 import com.zs.my_ecommerce.databinding.FragmentFavoriteBinding
 
@@ -60,12 +61,12 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun observe() {
-        mainVm.favorites.observe(viewLifecycleOwner) {
+        mainVm.favorites.observeOnce(viewLifecycleOwner) {
             val favoriteList = it.values.toList()
             binding.recycleView.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 favoriteAdapter = FavoriteAdapter(
-                    favoriteList,
+                    favoriteList.toMutableList(),
                     onItemClick = { onItemClick(it) },
 //                    onAddToCartClick = { onAddToCartClick(it) },
 //                    onDeleteClick = { onDeleteClick(it) }

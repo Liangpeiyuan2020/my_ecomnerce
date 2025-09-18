@@ -29,19 +29,20 @@
             android:orientation="horizontal">
 
             <!-- 编辑按钮 -->
-            <Button
+            <TextView
                 android:id="@+id/slideAddBtn"
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:background="#FF9800"
                 android:gravity="center"
+                android:lines="1"
                 android:text="Add To Cart"
                 android:textColor="#FFFFFF" />
 
             <!-- 删除按钮 -->
-            <Button
+            <TextView
                 android:id="@+id/slideDeleteBtn"
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:background="#F44336"
                 android:gravity="center"

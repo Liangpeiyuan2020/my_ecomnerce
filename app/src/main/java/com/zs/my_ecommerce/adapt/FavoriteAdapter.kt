@@ -9,9 +9,8 @@ import com.zs.my_ecommerce.bean.Favorite
 import com.zs.my_ecommerce.databinding.ItemFavoriteBinding
 
 class FavoriteAdapter(
-    val favorites: List<Favorite>,
-    val onItemClick: (Favorite) -> Unit,
-
+    var favorites: MutableList<Favorite>,
+    val onItemClick: (Favorite) -> Unit
 ) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     var onAddToCartClick: ((Favorite) -> Unit)? = null
@@ -29,7 +28,7 @@ class FavoriteAdapter(
         holder: FavoriteViewHolder,
         position: Int
     ) {
-        holder.bind(favorites[position])
+        holder.bind(favorites[position], position)
 
 
     }
@@ -38,7 +37,7 @@ class FavoriteAdapter(
 
     inner class FavoriteViewHolder(val binding: ItemFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(favorite: Favorite) {
+        fun bind(favorite: Favorite, position: Int) {
             binding.favorite = favorite
             binding.cardView.setOnClickListener {
                 onItemClick(favorite)
@@ -49,6 +48,9 @@ class FavoriteAdapter(
             }
             binding.slideDeleteBtn.setOnClickListener {
                 onDeleteClick?.invoke(favorite)
+                favorites.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, favorites.size)
                 binding.swipeLayout.close(true)
             }
             // 监听滑动状态变化
@@ -67,6 +69,7 @@ class FavoriteAdapter(
             })
         }
     }
+
     // 添加关闭所有滑动项的方法
     fun closeAllItems(recyclerView: RecyclerView) {
         for (i in 0 until recyclerView.childCount) {
